@@ -3,14 +3,14 @@ import { IMAGES_LINKS_MAP } from "@/data/constans";
 import { useEffect, useState } from "react";
 import Button from "../UI/Button";
 import { useImageEditorContext } from "@/context/ImageEditorContext";
+import { useRouter } from "next/router";
 
 const ImageEditorContainer = ({ imageId = "" }) => {
-  /* let canvas: HTMLCanvasElement; */
-  /* let ctx: CanvasRenderingContext2D; */
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
   const [ctx, setCtx] = useState<CanvasRenderingContext2D>();
 
   const { state, dispatch } = useImageEditorContext();
+  const router = useRouter();
 
   const getImgData = () => {
     return ctx!.getImageData(0, 0, canvas.width, canvas.height);
@@ -99,6 +99,8 @@ const ImageEditorContainer = ({ imageId = "" }) => {
     const newImage = { arrayId: state.imageSelected, imageData: imageData };
     dispatch({ type: "saveImageEdited", payload: newImage });
     ctx.putImageData(imageData, 0, 0);
+
+    router.push("/image-selector");
   };
 
   useEffect(() => {
@@ -138,10 +140,6 @@ const ImageEditorContainer = ({ imageId = "" }) => {
         $(this).off("mousemove");
       });
   }, []);
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <div className="grid w-fit">

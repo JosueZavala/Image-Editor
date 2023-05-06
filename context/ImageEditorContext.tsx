@@ -1,10 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
 
-/* type ImageEdited = {
-  arrayId: number;
-  imageData: any;
-}; */
-
 type State = {
   imagesEdited?: any[];
   imageSelected: number;

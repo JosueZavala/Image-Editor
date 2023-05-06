@@ -1,22 +1,39 @@
 import { useEffect, useState } from "react";
 import ImageCard from "./ImageCard";
-import { ArrayImages, IMAGES_DOMAIN, IMAGES_LINKS_MAP } from "@/data/constans";
-import Link from "next/link";
+import { ArrayImages, IMAGES_LINKS_MAP } from "@/data/constans";
+import { useImageEditorContext } from "@/context/ImageEditorContext";
 
 const ImagesContainer = () => {
   const [imagesCards, setImagesCards] = useState<JSX.Element[]>([]);
+  const { state, dispatch } = useImageEditorContext();
 
   useEffect(() => {
     if (!ArrayImages) return;
 
-    const newImagesCards = ArrayImages.map((imageUrl, index) => (
-      <ImageCard
-        key={`imageCard_${index}`}
-        image={IMAGES_LINKS_MAP[imageUrl]}
-        imageUrl={imageUrl}
-        imageIndex={index}
-      />
-    ));
+    const { imagesEdited } = state;
+    const arrayIds = imagesEdited?.map((element) => element.arrayId);
+    console.log(arrayIds);
+
+    const newImagesCards = ArrayImages.map((imageUrl, index) => {
+      let imageEditedData;
+      if (arrayIds?.includes(index)) {
+        const imageInfo = imagesEdited?.find(
+          (element) => element.arrayId === index
+        );
+        imageEditedData = imageInfo.imageData;
+        console.log(imageEditedData);
+      }
+      return (
+        <ImageCard
+          key={`imageCard_${index}`}
+          image={IMAGES_LINKS_MAP[imageUrl]}
+          imageUrl={imageUrl}
+          imageIndex={index}
+          edited={arrayIds?.includes(index)}
+          imageEditedData={imageEditedData}
+        />
+      );
+    });
 
     setImagesCards(newImagesCards);
   }, []);

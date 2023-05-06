@@ -10,13 +10,12 @@ const ImagesContainer = () => {
     if (!ArrayImages) return;
 
     const newImagesCards = ArrayImages.map((imageUrl, index) => (
-      <Link href={`/image-editor/${imageUrl}`} key={`LinkImageCard_${index}`}>
-        <ImageCard
-          key={`imageCard_${index}`}
-          image={IMAGES_LINKS_MAP[imageUrl]}
-          imageUrl={imageUrl}
-        />
-      </Link>
+      <ImageCard
+        key={`imageCard_${index}`}
+        image={IMAGES_LINKS_MAP[imageUrl]}
+        imageUrl={imageUrl}
+        imageIndex={index}
+      />
     ));
 
     setImagesCards(newImagesCards);

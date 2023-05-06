@@ -74,7 +74,7 @@ const ImageCard = ({
               action={() => UpdateImageSelected(imageIndex)}
             />
           </Link>
-          <Button text="Request edit" />
+          {/* <Button text="Request edit" /> */}
         </div>
       )}
     </div>

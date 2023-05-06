@@ -1,4 +1,5 @@
-import { IMAGES_DOMAIN, IMAGES_LINKS_MAP } from "@/data/constans";
+import $ from "jquery";
+import { IMAGES_LINKS_MAP } from "@/data/constans";
 import { useEffect } from "react";
 
 const ImageEditorContainer = ({ imageId = "" }) => {
@@ -32,10 +33,8 @@ const ImageEditorContainer = ({ imageId = "" }) => {
     imageObj.crossOrigin = "anonymous";
     imageObj.src = IMAGES_LINKS_MAP[imageId];
 
-    const canvas: HTMLCanvasElement = canvasElement as HTMLCanvasElement;
-    const ctx: CanvasRenderingContext2D = canvas.getContext(
-      "2d"
-    ) as CanvasRenderingContext2D;
+    canvas = canvasElement as HTMLCanvasElement;
+    ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
     imageObj.addEventListener("load", () => {
       canvas.width = imageObj.width;
@@ -45,11 +44,29 @@ const ImageEditorContainer = ({ imageId = "" }) => {
     });
   }, [imageId]);
 
+  useEffect(() => {
+    $("#canvas")
+      .on("mousedown", function () {
+        $(this).on("mousemove", function (event) {
+          DeletePixels(event);
+        });
+      })
+      .on("mousedown", function (event) {
+        DeletePixels(event);
+      })
+      .on("mouseup", function () {
+        $(this).off("mousemove");
+      })
+      .on("mouseout", function () {
+        $(this).off("mousemove");
+      });
+  }, []);
+
   return (
-    <div className="grid">
+    <div className="grid w-fit">
       <canvas
         id="canvas"
-        className="border border-white rounded max-w-[1170px] max-h-[780px]"
+        className="border border-white rounded "
         width="800"
         height="600"
       ></canvas>

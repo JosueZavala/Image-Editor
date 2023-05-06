@@ -5,6 +5,6 @@
 body {
   margin-right: auto;
   margin-left: auto;
-  max-width: 1550px;
+  width: fit-content;
   background-color: #efefee;
 }

@@ -13,7 +13,7 @@ const ImageEditorContainer = ({ imageId = "" }) => {
   const router = useRouter();
 
   const getImgData = () => {
-    return ctx!.getImageData(0, 0, canvas.width, canvas.height);
+    return ctx!.getImageData(0, 0, canvas!.width, canvas!.height);
   };
 
   const DeletePixels = (event: any) => {
@@ -56,7 +56,7 @@ const ImageEditorContainer = ({ imageId = "" }) => {
       pixels[i * 4 + 2] = grey;
     }
 
-    ctx.putImageData(imageData, 0, 0);
+    ctx!.putImageData(imageData, 0, 0);
   };
 
   const SepiaImage = (event: any) => {
@@ -78,12 +78,12 @@ const ImageEditorContainer = ({ imageId = "" }) => {
       pixels[i * 4 + 2] = r * 0.272 + g * 0.534 + b * 0.131;
     }
 
-    ctx.putImageData(imageData, 0, 0);
+    ctx!.putImageData(imageData, 0, 0);
   };
 
   const DownloadImage = () => {
     const link = window.document.createElement("a"),
-      url = canvas.toDataURL(),
+      url = canvas!.toDataURL(),
       filename = "./assets/editedImage.jpg";
 
     link.setAttribute("href", url);
@@ -98,7 +98,7 @@ const ImageEditorContainer = ({ imageId = "" }) => {
     const imageData = getImgData();
     const newImage = { arrayId: state.imageSelected, imageData: imageData };
     dispatch({ type: "saveImageEdited", payload: newImage });
-    ctx.putImageData(imageData, 0, 0);
+    ctx!.putImageData(imageData, 0, 0);
 
     router.push("/image-selector");
   };

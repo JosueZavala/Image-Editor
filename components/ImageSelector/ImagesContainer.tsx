@@ -29,7 +29,7 @@ const ImagesContainer = () => {
           image={IMAGES_LINKS_MAP[imageUrl]}
           imageUrl={imageUrl}
           imageIndex={index}
-          edited={arrayIds?.includes(index)}
+          edited={arrayIds?.includes(index) || false}
           imageEditedData={imageEditedData}
         />
       );

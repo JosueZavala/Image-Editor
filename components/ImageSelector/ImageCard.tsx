@@ -4,9 +4,18 @@ import cn from "classnames";
 import Link from "next/link";
 import Button from "../UI/Button";
 import { useImageEditorContext } from "@/context/ImageEditorContext";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
-const ImageCard = ({
+type ImageCardProps = {
+  image: string;
+  resolution?: string;
+  imageUrl: string;
+  imageIndex: number;
+  edited?: boolean;
+  imageEditedData?: any;
+};
+
+const ImageCard: FC<ImageCardProps> = ({
   image = "",
   resolution = "",
   imageUrl = "",

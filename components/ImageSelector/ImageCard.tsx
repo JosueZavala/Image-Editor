@@ -43,7 +43,7 @@ const ImageCard: FC<ImageCardProps> = ({
       imageObject.onload = function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.scale(0.4, 0.4);
+        ctx.scale(0.25, 0.3);
         ctx.drawImage(imageObject, 0, 0);
       };
       imageObject.src = canvas.toDataURL();
